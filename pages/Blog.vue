@@ -44,6 +44,48 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-container>
+        <h1>Data table3</h1>
+        <v-row>
+          <v-col cols="6">
+            <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :items-per-page="5"
+              class="elevation-1"
+              @click:row="selectRow"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container v-intersect="showMoreContent">
+        <h1>Data table4</h1>
+        <v-row v-if="loadNewContent">
+          <v-col cols="6">
+            <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :items-per-page="5"
+              class="elevation-1"
+              @click:row="selectRow"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container>
+        <h1>Data table5</h1>
+        <v-row>
+          <v-col cols="6">
+            <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :items-per-page="5"
+              class="elevation-1"
+              @click:row="selectRow"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
       <v-snackbar
         v-model="snackbar"
         :right="$vuetify.breakpoint.lgAndUp"
@@ -72,7 +114,7 @@
       >
         <v-btn
           v-for="link in links"
-          :key="link"
+          :key="link.i"
           color="white"
           text
           rounded
@@ -80,6 +122,15 @@
           :to="link.url"
         >
           {{ link.label }}
+        </v-btn>
+        <v-btn
+          color="orange"
+          text
+          rounded
+          class="my-2"
+          @click="toggleThems"
+        >
+          Toggle them
         </v-btn>
         <v-col
           class="primary lighten-2 py-4 text-center white--text"
@@ -96,6 +147,7 @@
 export default {
   name: 'Blog',
   data: () => ({
+    loadNewContent: false,
     currentItem: '',
     snackbar: false,
     links: [
@@ -216,6 +268,12 @@ export default {
     selectRow (event) {
       this.snackbar = true
       this.currentItem = event.name
+    },
+    showMoreContent (entries) {
+      this.loadNewContent = (entries[0].isIntersecting)
+    },
+    toggleThems () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
   }
 }

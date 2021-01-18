@@ -1,19 +1,21 @@
 import Vuetify from 'vuetify/lib'
 import { preset } from 'vue-cli-plugin-vuetify-preset-crane/preset'
-import colors from 'vuetify/es5/util/colors'
 
 export default new Vuetify({
   preset,
   rtl: true,
   theme: {
     light: {
-      primary: colors.purple,
-      secondary: colors.grey.darken1,
-      accent: colors.shades.black,
-      error: colors.red.accent3
+      primary: '#673AB7',
+      secondary: '#6200EA',
+      accent: '#00897B',
+      error: '#BF360C'
     },
     dark: {
-      primary: colors.blue.lighten3
+      primary: '#4174d0',
+      secondary: '#11212c',
+      accent: '#051024',
+      error: '#c10606'
     }
   },
   options: {

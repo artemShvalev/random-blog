@@ -57,9 +57,16 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
+        },
+        light: {
+          primary: '#673AB7',
+          secondary: '#fffdfd',
+          accent: '#00897B',
+          error: '#BF360C'
         }
       }
-    }
+    },
+    treeShake: true
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

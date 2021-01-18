@@ -26,6 +26,7 @@
         <v-row
           justify="center"
           no-gutters
+          align="center"
         >
           <v-btn
             v-for="link in links"
