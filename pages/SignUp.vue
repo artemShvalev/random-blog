@@ -21,22 +21,14 @@
               <h1>Sign Up</h1>
               <v-form ref="signUpForm" v-model="formValidaty">
                 <v-text-field v-model="email" :rules="emailRules" required label="Email" type="email" />
+                <v-text-field v-model="password" :rules="passwordRules" required label="Password" type="password" />
                 <v-autocomplete label="Which browser do u use?" :items="states" />
                 <v-file-input label="Touch profile picture" truncate-length="15" />
                 <v-text-field v-model="birthday" label="U BirthDay" readonly />
                 <v-date-picker v-model="birthday" color="green lighten-1" header-color="primary" />
                 <v-checkbox v-model="agreeToTerms" :rules="agreeToTermsRules" requird label="Agree & Conditional private rules" />
-                <v-btn type="submit" class="mr-4" color="primary" :disabled="!formValidaty">
+                <v-btn type="submit" class="mr-4" color="primary" :disabled="!formValidaty" @click.prevent="onsubmit">
                   Submit!
-                </v-btn>
-                <v-btn class="mr-4" color="success" @click="validateForm">
-                  Validate Form
-                </v-btn>
-                <v-btn color="warning" class="mr-4" @click="resetValidation">
-                  Reset Validation
-                </v-btn>
-                <v-btn color="error" @click="resetForm">
-                  Reset
                 </v-btn>
               </v-form>
             </v-col>
@@ -77,6 +69,7 @@
 <script>
 export default {
   data: () => ({
+    password: '',
     formValidaty: false,
     email: '',
     emailRules: [
@@ -86,6 +79,11 @@ export default {
       value => value.indexOf('@') || 'Email should include "@" symbol',
       value => value.indexOf('.') - value.indexOf('@') > 1 || 'Email should contain valid domain',
       value => value.indexOf('.') <= value.length - 3 || 'Email should contain valid domain extension'
+    ],
+    passwordRules: [
+      value => !!value || 'Password is required',
+      value => !!value.length < 6 || 'Password must be contain min 6 symbols',
+      value => !!value.indexOf('A-z') || 'Password must be contain symbols "A-z"'
     ],
     agreeToTermsRules: [
       value => !!value || 'You must agree us terms conditional'
@@ -128,14 +126,19 @@ export default {
     ]
   }),
   methods: {
-    resetValidation () {
-      this.$refs.signUpForm.resetValidation()
-    },
-    resetForm () {
-      this.$refs.signUpForm.reset()
-    },
-    validateForm () {
-      this.$refs.signUpForm.validate()
+    onsubmit () {
+      this.$axios.$post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+        process.env.API_KEY, {
+        email: this.email,
+        password: this.password,
+        returnSecureToken: true
+      }
+      ).then((result) => {
+        // eslint-disable-next-line no-console
+        console.log(result)
+      })
+        // eslint-disable-next-line no-console
+        .catch(e => console.log(e))
     }
   }
 }

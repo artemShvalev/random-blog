@@ -37,8 +37,28 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyA_sfuOPP2m9DuzGEr4gmAfjkaFrPw5K0I',
+          authDomain: 'random-blog-fba85.firebaseapp.com',
+          databaseURL: 'https://random-blog-fba85-default-rtdb.firebaseio.com/',
+          projectId: 'random-blog-fba85',
+          storageBucket: 'random-blog-fba85.appspot.com',
+          messagingSenderId: '967824461480',
+          appId: '1:967824461480:web:5da5d949de6d58ba523c9d',
+          measurementId: ''
+        },
+        services: {
+          auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
   ],
+  // router: {
+  //   middleware: 'log.js'
+  // },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -71,5 +91,8 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+  env: {
+    API_KEY: 'AIzaSyA_sfuOPP2m9DuzGEr4gmAfjkaFrPw5K0I'
   }
 }

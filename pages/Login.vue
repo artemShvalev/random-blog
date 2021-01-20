@@ -22,10 +22,12 @@
           <v-card-text>
             <v-form>
               <v-text-field
+                v-model="login.user"
                 label="UserName"
                 prepend-icon="mdi-action-circle"
               />
               <v-text-field
+                v-model="login.pass"
                 :type="showPassword ? 'text' : 'password'"
                 label="Password"
                 prepend-icon="mdi-lock"
@@ -36,11 +38,11 @@
           </v-card-text>
           <v-divider />
           <v-card-actions>
-            <v-btn color="success">
+            <v-btn color="success" to="/SignUp">
               Register
             </v-btn>
             <v-spacer />
-            <v-btn color="info">
+            <v-btn color="info" @click.prevent="onEntry">
               Login
             </v-btn>
           </v-card-actions>
@@ -78,10 +80,19 @@
 </template>
 
 <script>
+
 export default {
   name: 'Login',
+  // eslint-disable-next-line no-undef,vue/require-prop-types
+  props: {
+    submit: Promise
+  },
   data: () => {
     return {
+      login: {
+        user: '',
+        pass: ''
+      },
       showPassword: false,
       links: [
         {
@@ -101,6 +112,15 @@ export default {
           url: '/Login'
         }
       ]
+    }
+  },
+  methods: {
+    onEntry () {
+      // eslint-disable-next-line no-cond-assign,eqeqeq
+      if (this.login === !this.submit) {
+        // eslint-disable-next-line no-console
+        this.$router.push('/Blog')
+      }
     }
   }
 }
