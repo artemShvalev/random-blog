@@ -70,6 +70,18 @@ export default {
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    breakpoint: {
+      scrollBarWidth: 16,
+      thresholds: {
+        xs: 600,
+        sm: 960,
+        md: 1280,
+        lg: 1920,
+      },
+    },
+    icons: {
+      iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+    },
     theme: {
       dark: true,
       themes: {

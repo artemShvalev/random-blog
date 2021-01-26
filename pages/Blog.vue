@@ -12,98 +12,64 @@
       >
         {{ link.label }}
       </v-btn>
+      <v-btn
+        color="orange"
+        text
+        rounded
+        class="my-2"
+        @click="toggleThems"
+      >
+        Сменить тему
+      </v-btn>
     </v-app-bar>
     <v-spacer />
+    <!-- content -->
     <v-main>
-      <v-container>
-        <h1>Data table</h1>
-        <v-row>
-          <v-col cols="6" xs="2">
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :items-per-page="5"
-              class="elevation-1"
-              @click:row="selectRow"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-spacer />
-      <v-container>
-        <h1>Data table2</h1>
-        <v-row>
-          <v-col cols="6">
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :items-per-page="5"
-              class="elevation-1"
-              @click:row="selectRow"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-container>
-        <h1>Data table3</h1>
-        <v-row>
-          <v-col cols="6">
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :items-per-page="5"
-              class="elevation-1"
-              @click:row="selectRow"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-container v-intersect="showMoreContent">
-        <h1>Data table4</h1>
-        <v-row v-if="loadNewContent">
-          <v-col cols="6">
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :items-per-page="5"
-              class="elevation-1"
-              @click:row="selectRow"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-container>
-        <h1>Data table5</h1>
-        <v-row>
-          <v-col cols="6">
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :items-per-page="5"
-              class="elevation-1"
-              @click:row="selectRow"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-snackbar
-        v-model="snackbar"
-        :right="$vuetify.breakpoint.lgAndUp"
-      >
-        You have selected: {{ currentItem }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn
-            color="pink"
-            text
-            v-bind="attrs"
-            @click="snackbar = false"
+      <v-row>
+        <v-col>
+        <v-card
+        class="mx-auto mt-8 mb-8"
+        max-width="90%"
+        elevation="5"
+        rounded
+        raised
+        loading="true"
+        >
+          <v-card-title
+            v-for="article in articles"
+            :key="article.index"
+            color="cyan lighten-5"
           >
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
+              {{ article.title }}
+            <v-spacer></v-spacer>
+            <v-card-subtitle
+              color="color"
+            >
+              {{article.description}}
+              <v-spacer></v-spacer>
+              <v-img
+                max-width="500"
+                max-height="500"
+                alt="Фото статьи"
+                transition="true"
+                contain
+                :srcset="article.urlToImage"
+              >
+              </v-img>
+              <v-btn
+                :href="article.url"
+                class="mt-5"
+                v-ripple="{center: true}"
+              >
+                Подробнее...
+              </v-btn>
+            </v-card-subtitle>
+          </v-card-title>
+        </v-card>
+        </v-col>
+      </v-row>
     </v-main>
+    <!-- footer-->
     <v-footer
       color="primary lighten-1"
       padless
@@ -123,20 +89,17 @@
         >
           {{ link.label }}
         </v-btn>
-        <v-btn
-          color="orange"
-          text
-          rounded
-          class="my-2"
-          @click="toggleThems"
-        >
-          Toggle them
-        </v-btn>
         <v-col
           class="primary lighten-2 py-4 text-center white--text"
           cols="12"
         >
-          {{ new Date().getFullYear() }} — <strong>Blog</strong>
+          {{ new Date().getFullYear() }} —
+          <strong
+            v-for="source in sources"
+            :key="source.index"
+          >
+            {{source.name}}
+          </strong>
         </v-col>
       </v-row>
     </v-footer>
@@ -147,9 +110,11 @@
 export default {
   name: 'Blog',
   data: () => ({
-    loadNewContent: false,
-    currentItem: '',
-    snackbar: false,
+    sources: null,
+    name: null,
+    urlToImage: '',
+    articles: null,
+    color: '#E3F2FD',
     links: [
       {
         label: 'Home',
@@ -167,118 +132,43 @@ export default {
         label: 'Login',
         url: '/Login'
       }
-    ],
-    headers: [
-      {
-        text: 'Dessert (100g serving)',
-        align: 'start',
-        sortable: false,
-        value: 'name'
-      },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Iron (%)', value: 'iron' }
-    ],
-    desserts: [
-      {
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        iron: '1%'
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: '7%'
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        iron: '8%'
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: '16%'
-      },
-      {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        iron: '0%'
-      },
-      {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        iron: '2%'
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        iron: '45%'
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        iron: '22%'
-      },
-      {
-        name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        iron: '6%'
-      }
     ]
   }),
+  mounted () {
+    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+      .then((response) => {
+        this.articles = response.articles
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  },
+  created () {
+    this.$axios.$get('http://newsapi.org/v2/sources?country=ru&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+      .then((response) => {
+        this.sources = response.sources
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  },
   methods: {
-    selectRow (event) {
-      this.snackbar = true
-      this.currentItem = event.name
-    },
-    showMoreContent (entries) {
-      this.loadNewContent = (entries[0].isIntersecting)
-    },
     toggleThems () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    getImage () {
+      const min = 550
+      const max = 560
+
+      return Math.floor(Math.random() * (max - min + 1)) + min
     }
   }
 }
 </script>
 
 <style scoped lang=scss>
+  .id{
+    color: forestgreen;
+  }
 
 </style>
