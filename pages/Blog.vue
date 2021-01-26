@@ -24,8 +24,19 @@
     </v-app-bar>
     <v-spacer />
     <!-- content -->
+    <v-spacer></v-spacer>
     <v-main>
       <v-row>
+        <v-container>
+        <v-btn
+          small
+          class="mt-4 ml-4"
+          @click.prevent="showPoliticsBlock"
+          >
+          Политика
+        </v-btn>
+          <PoliticsPage v-if="politics"/>
+        </v-container>
         <v-col>
         <v-card
         class="mx-auto mt-8 mb-8"
@@ -38,7 +49,7 @@
           <v-card-title
             v-for="article in articles"
             :key="article.index"
-            color="cyan lighten-5"
+            color="cyan lighten-3"
           >
               {{ article.title }}
             <v-spacer></v-spacer>
@@ -107,9 +118,15 @@
 </template>
 
 <script>
+import PoliticsPage from '~/components/PoliticsPage'
+
 export default {
   name: 'Blog',
+  components: {
+    PoliticsPage
+  },
   data: () => ({
+    politics: null,
     sources: null,
     name: null,
     urlToImage: '',
@@ -156,11 +173,8 @@ export default {
     toggleThems () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     },
-    getImage () {
-      const min = 550
-      const max = 560
-
-      return Math.floor(Math.random() * (max - min + 1)) + min
+    showPoliticsBlock () {
+      this.politics = !this.politics
     }
   }
 }
