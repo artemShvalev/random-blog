@@ -1,13 +1,13 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
+  <v-app dark app>
+    <h1 v-if="error.statusCode === 404 || 400" class="mt-10  mx-auto d-flex align-center justify-center">
       {{ pageNotFound }}
     </h1>
     <h1 v-else>
       {{ otherError }}
     </h1>
-    <NuxtLink to="/">
-      Home page
+    <NuxtLink to="/Index" class="mx-auto mt-10">
+      На главную
     </NuxtLink>
   </v-app>
 </template>
@@ -23,7 +23,7 @@ export default {
   },
   data () {
     return {
-      pageNotFound: '404 Not Found',
+      pageNotFound: '404 - Страница не найдена',
       otherError: 'An error occurred'
     }
   },
