@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="primary">
-      <v-toolbar-title>Blog</v-toolbar-title>
+      <v-toolbar-title>Новости</v-toolbar-title>
       <v-spacer />
       <v-btn
         v-for="link in links"
@@ -26,21 +26,10 @@
     <!-- content -->
     <v-spacer></v-spacer>
     <v-main>
-      <v-row>
-        <v-container>
-        <v-btn
-          small
-          class="mt-4 ml-4"
-          @click.prevent="showPoliticsBlock"
-          >
-          Политика
-        </v-btn>
-          <PoliticsPage v-if="politics"/>
-        </v-container>
-        <v-col>
         <v-card
-        class="mx-auto mt-8 mb-8"
-        max-width="90%"
+        class="mx-auto mt-8"
+        max-width="1000"
+        max-heigth="95%"
         elevation="5"
         rounded
         raised
@@ -55,16 +44,19 @@
             <v-spacer></v-spacer>
             <v-card-subtitle
               color="color"
+              class="mt-2 mb-2"
             >
               {{article.description}}
+            </v-card-subtitle>
               <v-spacer></v-spacer>
               <v-img
-                max-width="500"
+                max-width="100%"
                 max-height="500"
                 alt="Фото статьи"
                 transition="true"
                 contain
-                :srcset="article.urlToImage"
+                :src="article.urlToImage"
+                lazy-src="article.urlToImage"
               >
               </v-img>
               <v-btn
@@ -74,11 +66,9 @@
               >
                 Подробнее...
               </v-btn>
-            </v-card-subtitle>
           </v-card-title>
         </v-card>
-        </v-col>
-      </v-row>
+          <v-spacer/>
     </v-main>
     <!-- footer-->
     <v-footer
@@ -118,13 +108,9 @@
 </template>
 
 <script>
-import PoliticsPage from '~/components/PoliticsPage'
 
 export default {
   name: 'Blog',
-  components: {
-    PoliticsPage
-  },
   data: () => ({
     politics: null,
     sources: null,
@@ -134,20 +120,16 @@ export default {
     color: '#E3F2FD',
     links: [
       {
-        label: 'Home',
-        url: '/'
+        label: 'Все Новости',
+        url: '/Index'
       },
       {
-        label: 'Blog',
-        url: '/Blog'
+        label: 'Бизнес',
+        url: '/PoliticsPage'
       },
       {
-        label: 'Sign Up',
-        url: '/SignUp'
-      },
-      {
-        label: 'Login',
-        url: '/Login'
+        label: 'Спорт',
+        url: '/SportNews'
       }
     ]
   }),
@@ -172,9 +154,6 @@ export default {
   methods: {
     toggleThems () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    },
-    showPoliticsBlock () {
-      this.politics = !this.politics
     }
   }
 }
