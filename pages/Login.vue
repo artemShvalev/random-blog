@@ -15,14 +15,14 @@
         </v-btn>
       </v-app-bar>
       <v-main>
-        <v-card width="400" class="mx-auto mt-5">
-          <v-card-title class="pb-0">
+        <v-card width="400" class="mx-auto mt-10">
+          <v-card-title class="pb-5 d-flex align-center justify-center">
             <h1>Login</h1>
           </v-card-title>
           <v-card-text>
             <v-form>
               <v-text-field
-                v-model="login.user"
+                v-model="login.userEmail"
                 label="UserName"
                 prepend-icon="mdi-action-circle"
               />
@@ -38,13 +38,17 @@
           </v-card-text>
           <v-divider />
           <v-card-actions>
+            <nuxt-link to="/SignUp">
             <v-btn color="success" to="/SignUp">
               Register
             </v-btn>
+            </nuxt-link>
             <v-spacer />
-            <v-btn color="info" @click.prevent="onEntry">
+            <nuxt-link to="/Home">
+            <v-btn color="info" @click.prevent="onEntry" v-model="login">
               Login
             </v-btn>
+            </nuxt-link>
           </v-card-actions>
         </v-card>
       </v-main>
@@ -90,7 +94,7 @@ export default {
   data: () => {
     return {
       login: {
-        user: '',
+        userEmail: '',
         pass: ''
       },
       showPassword: false,
@@ -116,10 +120,19 @@ export default {
   },
   methods: {
     onEntry () {
-      // eslint-disable-next-line no-cond-assign,eqeqeq
-      if (this.login === !this.submit) {
-        // eslint-disable-next-line no-console
-        this.$router.push('/Blog')
+      if (this.login) {
+        this.$axios.$post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          process.env.API_KEY, {
+          email: this.login.userEmail,
+          password: this.login.pass,
+          returnSecureToken: true
+        }
+        ).then((result) => {
+          this.login = result
+          this.$router.push('/Home')
+        })
+          // eslint-disable-next-line no-console
+          .catch(e => console.log(e))
       }
     }
   }

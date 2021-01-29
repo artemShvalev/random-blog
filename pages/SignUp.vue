@@ -22,14 +22,15 @@
               <v-form ref="signUpForm" v-model="formValidaty">
                 <v-text-field v-model="email" :rules="emailRules" required label="Email" type="email" />
                 <v-text-field v-model="password" :rules="passwordRules" required label="Password" type="password" />
-                <v-autocomplete label="Which browser do u use?" :items="states" />
                 <v-file-input label="Touch profile picture" truncate-length="15" />
                 <v-text-field v-model="birthday" label="U BirthDay" readonly />
                 <v-date-picker v-model="birthday" color="green lighten-1" header-color="primary" />
                 <v-checkbox v-model="agreeToTerms" :rules="agreeToTermsRules" requird label="Agree & Conditional private rules" />
+                <nuxt-link to="/Login">
                 <v-btn type="submit" class="mr-4" color="primary" :disabled="!formValidaty" @click.prevent="onsubmit">
                   Submit!
                 </v-btn>
+                </nuxt-link>
               </v-form>
             </v-col>
           </v-row>
@@ -67,11 +68,13 @@
 </template>
 
 <script>
+
 export default {
+
   data: () => ({
+    email: '',
     password: '',
     formValidaty: false,
-    email: '',
     emailRules: [
       value => !!value || 'Email is required',
       value => value.indexOf('@') !== 0 || 'Email should have  a username',
@@ -107,38 +110,24 @@ export default {
         label: 'Login',
         url: '/Login'
       }
-    ],
-    states: [
-      'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-      'Arkansas', 'California', 'Colorado', 'Connecticut',
-      'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-      'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-      'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-      'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-      'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-      'Missouri', 'Montana', 'Nebraska', 'Nevada',
-      'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-      'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-      'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-      'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-      'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-      'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
     ]
   }),
   methods: {
     onsubmit () {
-      this.$axios.$post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
-        process.env.API_KEY, {
-        email: this.email,
-        password: this.password,
-        returnSecureToken: true
+      if (this.formValidaty) {
+        this.$axios.$post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          process.env.API_KEY, {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true
+        }
+        ).then((result) => {
+          // eslint-disable-next-line no-console
+          console.log(result)
+        })
+          // eslint-disable-next-line no-console
+          .catch(e => console.log(e))
       }
-      ).then((result) => {
-        // eslint-disable-next-line no-console
-        console.log(result)
-      })
-        // eslint-disable-next-line no-console
-        .catch(e => console.log(e))
     }
   }
 }
