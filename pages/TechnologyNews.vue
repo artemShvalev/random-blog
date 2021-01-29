@@ -35,17 +35,17 @@
       >
         <v-card-title
           color="cyan lighten-3"
-          v-for="sport in sports"
-          :key="sport.index"
+          v-for="tech in technology"
+          :key="tech.index"
         >
-          {{sport.title}}
+          {{tech.title}}
           <v-spacer></v-spacer>
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
             width="300"
           >
-            {{sport.description}}
+            {{tech.description}}
           </v-card-subtitle>
           <v-spacer></v-spacer>
           <v-img
@@ -56,12 +56,12 @@
             transition="true"
             position="center center"
             contain
-            :src="sport.urlToImage"
-            lazy-src="sport.urlToImage"
+            :src="tech.urlToImage"
+            lazy-src="tech.urlToImage"
           >
           </v-img>
           <v-btn
-            :href="sport.url"
+            :href="tech.url"
             class="mt-5"
             v-ripple="{center: true}"
           >
@@ -95,10 +95,10 @@
         >
           {{ new Date().getFullYear() }} —
           <strong
-            v-for="sport in sports"
-            :key="sport.index"
+            v-for="tech in technology"
+            :key="tech.index"
           >
-            {{sport.author}}
+            {{tech.author}}
           </strong>
         </v-col>
       </v-row>
@@ -108,10 +108,10 @@
 
 <script>
 export default {
-  name: 'SportNews',
+  name: 'TechnologyNews',
   data () {
     return {
-      sports: null,
+      technology: null,
       links: [
         {
           label: 'Все Новости',
@@ -133,12 +133,9 @@ export default {
     }
   },
   mounted () {
-    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=sport&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=technology&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
       .then((response) => {
-        this.sports = response.articles
-      })
-      .catch((error) => {
-        this.$router.push(error, '/error')
+        this.technology = response.articles
       })
   },
   methods: {

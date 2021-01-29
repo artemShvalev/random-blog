@@ -119,11 +119,15 @@ export default {
         },
         {
           label: 'Бизнес',
-          url: '/PoliticsPage'
+          url: '/BusinessNews'
         },
         {
           label: 'Спорт',
           url: '/SportNews'
+        },
+        {
+          label: 'Технологии',
+          url: '/TechnologyNews'
         }
       ]
     }
