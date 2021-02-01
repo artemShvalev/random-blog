@@ -1,28 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary">
-      <v-toolbar-title>Новости</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-btn
-        color="orange"
-        text
-        rounded
-        class="my-2"
-        @click="toggleThems"
-      >
-        Сменить тему
-      </v-btn>
-    </v-app-bar>
-    <v-spacer />
+    <Navigation />
     <v-main>
       <v-card
         class="mx-auto mt-8"
@@ -69,74 +47,23 @@
         </v-card-title>
       </v-card>
     </v-main>
-    <v-footer
-      color="primary lighten-1"
-      padless
-    >
-      <v-row
-        justify="center"
-        no-gutters
-      >
-        <v-btn
-          v-for="link in links"
-          :key="link.i"
-          color="white"
-          text
-          rounded
-          class="my-2"
-          :to="link.url"
-        >
-          {{ link.label }}
-        </v-btn>
-        <v-col
-          class="primary lighten-2 py-4 text-center white--text"
-          cols="12"
-        >
-          {{ new Date().getFullYear() }} —
-          <strong
-            v-for="sport in sports"
-            :key="sport.index"
-          >
-            {{ sport.author }}
-          </strong>
-        </v-col>
-      </v-row>
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 
 <script>
+import Navigation from '../components/Navigation'
+import Footer from '~/components/Footer.vue'
+
 export default {
   name: 'SportNews',
+  components: {
+    Navigation,
+    Footer
+  },
   data () {
     return {
-      sports: null,
-      links: [
-        {
-          label: 'Все Новости',
-          url: '/Index'
-        },
-        {
-          label: 'Бизнес',
-          url: '/BusinessNews'
-        },
-        {
-          label: 'Спорт',
-          url: '/SportNews'
-        },
-        {
-          label: 'Технологии',
-          url: '/TechnologyNews'
-        },
-        {
-          label: 'Здоровье',
-          url: '/HealthNews'
-        },
-        {
-          label: 'Наука',
-          url: '/ScienceNews'
-        }
-      ]
+      sports: null
     }
   },
   mounted () {
@@ -147,11 +74,6 @@ export default {
       .catch((error) => {
         this.$router.push(error, '/error')
       })
-  },
-  methods: {
-    toggleThems () {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    }
   }
 }
 </script>
