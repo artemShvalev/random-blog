@@ -34,20 +34,20 @@
         loading="true"
       >
         <v-card-title
-          color="cyan lighten-3"
           v-for="tech in technology"
           :key="tech.index"
+          color="cyan lighten-3"
         >
-          {{tech.title}}
-          <v-spacer></v-spacer>
+          {{ tech.title }}
+          <v-spacer />
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
             width="300"
           >
-            {{tech.description}}
+            {{ tech.description }}
           </v-card-subtitle>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-img
             class="rounded-b"
             max-width="100%"
@@ -58,12 +58,11 @@
             contain
             :src="tech.urlToImage"
             lazy-src="tech.urlToImage"
-          >
-          </v-img>
+          />
           <v-btn
+            v-ripple="{center: true}"
             :href="tech.url"
             class="mt-5"
-            v-ripple="{center: true}"
           >
             Подробнее...
           </v-btn>
@@ -98,7 +97,7 @@
             v-for="tech in technology"
             :key="tech.index"
           >
-            {{tech.author}}
+            {{ tech.author }}
           </strong>
         </v-col>
       </v-row>
@@ -128,6 +127,14 @@ export default {
         {
           label: 'Технологии',
           url: '/TechnologyNews'
+        },
+        {
+          label: 'Здоровье',
+          url: '/HealthNews'
+        },
+        {
+          label: 'Наука',
+          url: '/ScienceNews'
         }
       ]
     }

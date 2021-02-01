@@ -34,20 +34,20 @@
         loading="true"
       >
         <v-card-title
-          color="cyan lighten-3"
           v-for="sport in sports"
           :key="sport.index"
+          color="cyan lighten-3"
         >
-          {{sport.title}}
-          <v-spacer></v-spacer>
+          {{ sport.title }}
+          <v-spacer />
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
             width="300"
           >
-            {{sport.description}}
+            {{ sport.description }}
           </v-card-subtitle>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-img
             class="rounded-b"
             max-width="100%"
@@ -58,12 +58,11 @@
             contain
             :src="sport.urlToImage"
             lazy-src="sport.urlToImage"
-          >
-          </v-img>
+          />
           <v-btn
+            v-ripple="{center: true}"
             :href="sport.url"
             class="mt-5"
-            v-ripple="{center: true}"
           >
             Подробнее...
           </v-btn>
@@ -98,7 +97,7 @@
             v-for="sport in sports"
             :key="sport.index"
           >
-            {{sport.author}}
+            {{ sport.author }}
           </strong>
         </v-col>
       </v-row>
@@ -128,6 +127,14 @@ export default {
         {
           label: 'Технологии',
           url: '/TechnologyNews'
+        },
+        {
+          label: 'Здоровье',
+          url: '/HealthNews'
+        },
+        {
+          label: 'Наука',
+          url: '/ScienceNews'
         }
       ]
     }

@@ -12,10 +12,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel:"apple-touch-icon", sizes:"180x180", href:"/apple-touch-icon.png" },
-      { rel:"icon", type:"image/png", sizes:"32x32", href:"/favicon-32x32.png" },
-      { rel:"icon", type:"image/png", sizes:"16x16", href:"/favicon-16x16.png" },
-      { rel:"manifest", href:"/site.webmanifest" }
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+      { rel: 'manifest', href: '/site.webmanifest' }
     ]
   },
 
@@ -71,16 +71,16 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     breakpoint: {
-      scrollBarWidth: 16,
+      scrollBarWidth: 14,
       thresholds: {
         xs: 600,
         sm: 960,
         md: 1280,
-        lg: 1920,
-      },
+        lg: 1920
+      }
     },
     icons: {
-      iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+      iconfont: 'mdiSvg' // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
     },
     theme: {
       dark: true,

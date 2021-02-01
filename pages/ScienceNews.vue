@@ -23,8 +23,6 @@
       </v-btn>
     </v-app-bar>
     <v-spacer />
-    <!-- content -->
-    <v-spacer />
     <v-main>
       <v-card
         class="mx-auto mt-8"
@@ -36,40 +34,40 @@
         loading="true"
       >
         <v-card-title
-          v-for="article in articles"
-          :key="article.index"
+          v-for="scienses in sciense"
+          :key="scienses.index"
           color="cyan lighten-3"
         >
-          {{ article.title }}
+          {{ scienses.title }}
           <v-spacer />
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
           >
-            {{ article.description }}
+            {{ scienses.description }}
           </v-card-subtitle>
           <v-spacer />
           <v-img
+            class="rounded-b"
             max-width="100%"
             max-height="500"
             alt="Фото статьи"
             transition="true"
+            position="center center"
             contain
-            :src="article.urlToImage"
-            lazy-src="article.urlToImage"
+            :src="scienses.urlToImage"
+            lazy-src="bus.urlToImage"
           />
           <v-btn
             v-ripple="{center: true}"
-            :href="article.url"
+            :href="scienses.url"
             class="mt-5"
           >
             Подробнее...
           </v-btn>
         </v-card-title>
       </v-card>
-      <v-spacer />
     </v-main>
-    <!-- footer-->
     <v-footer
       color="primary lighten-1"
       padless
@@ -95,10 +93,10 @@
         >
           {{ new Date().getFullYear() }} —
           <strong
-            v-for="source in sources"
-            :key="source.index"
+            v-for="scienses in sciense"
+            :key="scienses.index"
           >
-            {{ source.name }}
+            {{ scienses.author }}
           </strong>
         </v-col>
       </v-row>
@@ -107,56 +105,44 @@
 </template>
 
 <script>
-
 export default {
-  name: 'Blog',
-  data: () => ({
-    politics: null,
-    sources: null,
-    name: null,
-    urlToImage: '',
-    articles: null,
-    color: '#E3F2FD',
-    links: [
-      {
-        label: 'Все Новости',
-        url: '/Index'
-      },
-      {
-        label: 'Бизнес',
-        url: '/BusinessNews'
-      },
-      {
-        label: 'Спорт',
-        url: '/SportNews'
-      },
-      {
-        label: 'Технологии',
-        url: '/TechnologyNews'
-      },
-      {
-        label: 'Здоровье',
-        url: '/HealthNews'
-      },
-      {
-        label: 'Наука',
-        url: '/ScienceNews'
-      }
-    ]
-  }),
-  mounted () {
-    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=general&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
-      .then((response) => {
-        this.articles = response.articles
-      })
-      .catch((error) => {
-        alert(error)
-      })
+  name: 'PoliticsPage',
+  data () {
+    return {
+      sciense: null,
+      src: '',
+      links: [
+        {
+          label: 'Все Новости',
+          url: '/Index'
+        },
+        {
+          label: 'Бизнес',
+          url: '/BusinessNews'
+        },
+        {
+          label: 'Спорт',
+          url: '/SportNews'
+        },
+        {
+          label: 'Технологии',
+          url: '/TechnologyNews'
+        },
+        {
+          label: 'Здоровье',
+          url: '/HealthNews'
+        },
+        {
+          label: 'Наука',
+          url: '/ScienceNews'
+        }
+      ]
+    }
   },
-  created () {
-    this.$axios.$get('http://newsapi.org/v2/sources?country=ru&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+  mounted () {
+    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=science&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
       .then((response) => {
-        this.sources = response.sources
+        this.sciense = response.articles
       })
       .catch((error) => {
         alert(error)
@@ -171,8 +157,5 @@ export default {
 </script>
 
 <style scoped lang=scss>
-  .id{
-    color: forestgreen;
-  }
 
 </style>

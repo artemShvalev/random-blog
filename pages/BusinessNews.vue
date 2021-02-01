@@ -24,29 +24,29 @@
     </v-app-bar>
     <v-spacer />
     <v-main>
-    <v-card
-      class="mx-auto mt-8"
-      max-width="1000"
-      max-heigth="95%"
-      elevation="5"
-      rounded
-      raised
-      loading="true"
-    >
-      <v-card-title
-        v-for="bus in business"
-        :key="bus.index"
-        color="cyan lighten-3"
+      <v-card
+        class="mx-auto mt-8"
+        max-width="1000"
+        max-heigth="95%"
+        elevation="5"
+        rounded
+        raised
+        loading="true"
       >
-        {{ bus.title }}
-        <v-spacer></v-spacer>
-        <v-card-subtitle
-          color="color"
-          class="mt-2 mb-2"
+        <v-card-title
+          v-for="bus in business"
+          :key="bus.index"
+          color="cyan lighten-3"
         >
-          {{bus.description}}
-        </v-card-subtitle>
-          <v-spacer></v-spacer>
+          {{ bus.title }}
+          <v-spacer />
+          <v-card-subtitle
+            color="color"
+            class="mt-2 mb-2"
+          >
+            {{ bus.description }}
+          </v-card-subtitle>
+          <v-spacer />
           <v-img
             class="rounded-b"
             max-width="100%"
@@ -57,17 +57,16 @@
             contain
             :src="bus.urlToImage"
             lazy-src="bus.urlToImage"
-          >
-          </v-img>
+          />
           <v-btn
+            v-ripple="{center: true}"
             :href="bus.url"
             class="mt-5"
-            v-ripple="{center: true}"
           >
             Подробнее...
           </v-btn>
-      </v-card-title>
-    </v-card>
+        </v-card-title>
+      </v-card>
     </v-main>
     <v-footer
       color="primary lighten-1"
@@ -97,12 +96,12 @@
             v-for="bus in business"
             :key="bus.index"
           >
-            {{bus.author}}
+            {{ bus.author }}
           </strong>
         </v-col>
       </v-row>
     </v-footer>
-    </v-app>
+  </v-app>
 </template>
 
 <script>
@@ -128,6 +127,14 @@ export default {
         {
           label: 'Технологии',
           url: '/TechnologyNews'
+        },
+        {
+          label: 'Здоровье',
+          url: '/HealthNews'
+        },
+        {
+          label: 'Наука',
+          url: '/ScienceNews'
         }
       ]
     }
