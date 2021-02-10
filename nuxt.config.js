@@ -3,29 +3,46 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - random-blog',
-    title: 'random-blog',
+    titleTemplate: '%s - News',
+    title: 'Ежедневные Новости',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+      { rel: 'icon', type: 'image/x-icon', href: './static/favicon.ico' },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/static/apple-touch-icon.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/static/favicon-32x32.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/static/favicon-16x16.png'
+      },
       { rel: 'manifest', href: '/site.webmanifest' }
     ]
   },
 
+  router: {
+    base: '/index/',
+    routeNameSplitter: '-'
+  },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-  ],
+  plugins: [],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -42,7 +59,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    ['@nuxtjs/firebase',
+    [
+      '@nuxtjs/firebase',
       {
         config: {
           apiKey: 'AIzaSyA_sfuOPP2m9DuzGEr4gmAfjkaFrPw5K0I',
@@ -60,10 +78,6 @@ export default {
       }
     ]
   ],
-  // router: {
-  //   middleware: 'log.js'
-  // },
-
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
@@ -106,8 +120,7 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  },
+  build: {},
   env: {
     API_KEY: 'AIzaSyA_sfuOPP2m9DuzGEr4gmAfjkaFrPw5K0I'
   }

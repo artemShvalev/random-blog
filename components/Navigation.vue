@@ -1,28 +1,56 @@
 <template>
   <div>
-    <v-app-bar app color="primary">
-      <v-toolbar-title>Новости</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-btn
-        color="orange"
-        text
-        rounded
-        class="my-2"
-        @click="toggleThems"
-      >
-        Сменить тему
-      </v-btn>
-    </v-app-bar>
-    <v-spacer />
+    <no-ssr>
+      <v-app-bar app color="primary">
+        <v-toolbar-title>Новости</v-toolbar-title>
+        <v-app-bar-nav-icon
+          :width="width.xs"
+          :outlined="true"
+          class="pl-6"
+          icon="mdi-all"
+          @click="drawer = true"
+        >
+          <v-spacer />
+          <v-navigation-drawer
+            v-model="drawer"
+            :permanent="false"
+            hide-overlay
+            fixed
+            :mobile-breakpoint="width.xs"
+            height="350"
+            width="387"
+          >
+            <v-btn
+              color="orange"
+              class="my-2"
+              text
+              rounded
+              @click="toggleThems"
+            >
+              Сменить тему
+            </v-btn>
+            <v-list
+              nav
+              dense
+            >
+              <v-list-item
+                v-for="link in links"
+                :key="`${link.label}-header-link`"
+                v-model="group"
+                active-class="deep-purple--text text--accent-4"
+                text
+                rounded
+                :to="link.url"
+              >
+                <v-list-item>
+                  <v-list-item-title>{{ link.label }}</v-list-item-title>
+                </v-list-item>
+              </v-list-item>
+            </v-list>
+          </v-navigation-drawer>
+        </v-app-bar-nav-icon>
+      </v-app-bar>
+    </no-ssr>
   </div>
 </template>
 
@@ -30,10 +58,12 @@
 export default {
   data () {
     return {
+      drawer: false,
+      group: null,
       links: [
         {
           label: 'Все Новости',
-          url: '/Index'
+          url: '/'
         },
         {
           label: 'Бизнес',
@@ -55,7 +85,40 @@ export default {
           label: 'Наука',
           url: '/ScienceNews'
         }
-      ]
+      ],
+      items: [
+        {
+          icon: 'mdi-inbox',
+          text: 'Inbox'
+        },
+        {
+          icon: 'mdi-star',
+          text: 'Star'
+        },
+        {
+          icon: 'mdi-send',
+          text: 'Send'
+        },
+        {
+          icon: 'mdi-email-open',
+          text: 'Drafts'
+        }
+      ],
+      model: 1
+    }
+  },
+  computed: {
+    width () {
+      // Use in computed property
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return '320px'
+        case 'xs2': return '425px'
+        case 'sm': return '768px'
+        case 'md': return '1024px'
+        case 'lg': return '1920px'
+        case 'xl': return '2560px'
+      }
+      return this.width
     }
   },
   methods: {

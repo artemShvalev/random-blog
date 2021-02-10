@@ -2,6 +2,8 @@
   <v-app>
     <Navigation />
     <v-main>
+      </v-container>
+      <v-spacer />
       <v-card
         class="mx-auto mt-8"
         max-width="1000"
@@ -55,14 +57,14 @@ import Navigation from '../components/Navigation'
 import Footer from '~/components/Footer.vue'
 
 export default {
-  name: 'PoliticsPage',
+  name: 'HealthNews',
   components: {
     Navigation,
     Footer
   },
   data () {
     return {
-      health: null,
+      health: null, // Появляется привязка this
       src: ''
     }
   },

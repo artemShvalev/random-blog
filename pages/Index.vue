@@ -26,13 +26,23 @@
           </v-card-subtitle>
           <v-spacer />
           <v-img
+            contain
+          >
+            <v-skeleton-loader
+              v-if="load"
+              max-width="100%"
+              max-height="500"
+              loading="true"
+            />
+          </v-img>
+
+          <v-img
             max-width="100%"
             max-height="500"
             alt="Фото статьи"
             transition="true"
             contain
             :src="article.urlToImage"
-            lazy-src="article.urlToImage"
           />
           <v-btn
             v-ripple="{center: true}"
@@ -61,6 +71,8 @@ export default {
     Footer
   },
   data: () => ({
+    src: null,
+    load: false,
     politics: null,
     sources: null,
     name: null,
@@ -72,15 +84,6 @@ export default {
     this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=general&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
       .then((response) => {
         this.articles = response.articles
-      })
-      .catch((error) => {
-        alert(error)
-      })
-  },
-  created () {
-    this.$axios.$get('http://newsapi.org/v2/sources?country=ru&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
-      .then((response) => {
-        this.sources = response.sources
       })
       .catch((error) => {
         alert(error)

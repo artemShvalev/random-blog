@@ -38,7 +38,7 @@ export default {
       links: [
         {
           label: 'Все Новости',
-          url: '/Index'
+          url: '/'
         },
         {
           label: 'Бизнес',

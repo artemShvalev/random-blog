@@ -6,7 +6,7 @@
     <h1 v-else>
       {{ otherError }}
     </h1>
-    <NuxtLink to="/Index" class="mx-auto mt-10">
+    <NuxtLink to="/" class="mx-auto mt-10">
       На главную
     </NuxtLink>
   </v-app>
