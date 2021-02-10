@@ -2,6 +2,8 @@
   <v-app>
     <Navigation />
     <v-main>
+      </v-container>
+      <v-spacer />
       <v-card
         class="mx-auto mt-8"
         max-width="1000"
@@ -12,18 +14,17 @@
         loading="true"
       >
         <v-card-title
-          v-for="sport in sports"
-          :key="sport.index"
+          v-for="healthes in health"
+          :key="healthes.index"
           color="cyan lighten-3"
         >
-          {{ sport.title }}
+          {{ healthes.title }}
           <v-spacer />
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
-            width="300"
           >
-            {{ sport.description }}
+            {{ healthes.description }}
           </v-card-subtitle>
           <v-spacer />
           <v-img
@@ -34,12 +35,12 @@
             transition="true"
             position="center center"
             contain
-            :src="sport.urlToImage"
-            lazy-src="sport.urlToImage"
+            :src="healthes.urlToImage"
+            lazy-src="bus.urlToImage"
           />
           <v-btn
             v-ripple="{center: true}"
-            :href="sport.url"
+            :href="healthes.url"
             class="mt-5"
           >
             Подробнее...
@@ -56,24 +57,30 @@ import Navigation from '../components/Navigation'
 import Footer from '~/components/Footer.vue'
 
 export default {
-  name: 'SportNews',
+  name: 'HealthNews',
   components: {
     Navigation,
     Footer
   },
   data () {
     return {
-      sports: null
+      health: null, // Появляется привязка this
+      src: ''
     }
   },
   mounted () {
-    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=sport&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=health&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
       .then((response) => {
-        this.sports = response.articles
+        this.health = response.articles
       })
       .catch((error) => {
-        this.$router.push(error, '/error')
+        alert(error)
       })
+  },
+  methods: {
+    toggleThems () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
   }
 }
 </script>

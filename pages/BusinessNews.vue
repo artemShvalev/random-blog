@@ -1,52 +1,30 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary">
-      <v-toolbar-title>Новости</v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-btn
-        color="orange"
-        text
-        rounded
-        class="my-2"
-        @click="toggleThems"
-      >
-        Сменить тему
-      </v-btn>
-    </v-app-bar>
-    <v-spacer />
+    <Navigation />
     <v-main>
-    <v-card
-      class="mx-auto mt-8"
-      max-width="1000"
-      max-heigth="95%"
-      elevation="5"
-      rounded
-      raised
-      loading="true"
-    >
-      <v-card-title
-        v-for="bus in business"
-        :key="bus.index"
-        color="cyan lighten-3"
+      <v-card
+        class="mx-auto mt-8"
+        max-width="1000"
+        max-heigth="95%"
+        elevation="5"
+        rounded
+        raised
+        loading="true"
       >
-        {{ bus.title }}
-        <v-spacer></v-spacer>
-        <v-card-subtitle
-          color="color"
-          class="mt-2 mb-2"
+        <v-card-title
+          v-for="bus in business"
+          :key="bus.index"
+          color="cyan lighten-3"
         >
-          {{bus.description}}
-        </v-card-subtitle>
-          <v-spacer></v-spacer>
+          {{ bus.title }}
+          <v-spacer />
+          <v-card-subtitle
+            color="color"
+            class="mt-2 mb-2"
+          >
+            {{ bus.description }}
+          </v-card-subtitle>
+          <v-spacer />
           <v-img
             class="rounded-b"
             max-width="100%"
@@ -57,79 +35,35 @@
             contain
             :src="bus.urlToImage"
             lazy-src="bus.urlToImage"
-          >
-          </v-img>
+          />
           <v-btn
+            v-ripple="{center: true}"
             :href="bus.url"
             class="mt-5"
-            v-ripple="{center: true}"
           >
             Подробнее...
           </v-btn>
-      </v-card-title>
-    </v-card>
+        </v-card-title>
+      </v-card>
     </v-main>
-    <v-footer
-      color="primary lighten-1"
-      padless
-    >
-      <v-row
-        justify="center"
-        no-gutters
-      >
-        <v-btn
-          v-for="link in links"
-          :key="link.i"
-          color="white"
-          text
-          rounded
-          class="my-2"
-          :to="link.url"
-        >
-          {{ link.label }}
-        </v-btn>
-        <v-col
-          class="primary lighten-2 py-4 text-center white--text"
-          cols="12"
-        >
-          {{ new Date().getFullYear() }} —
-          <strong
-            v-for="bus in business"
-            :key="bus.index"
-          >
-            {{bus.author}}
-          </strong>
-        </v-col>
-      </v-row>
-    </v-footer>
-    </v-app>
+    <Footer />
+  </v-app>
 </template>
 
 <script>
+import Navigation from '../components/Navigation'
+import Footer from '../components/Footer'
+
 export default {
   name: 'PoliticsPage',
+  components: {
+    Navigation,
+    Footer
+  },
   data () {
     return {
       business: null,
-      src: '',
-      links: [
-        {
-          label: 'Все Новости',
-          url: '/Index'
-        },
-        {
-          label: 'Бизнес',
-          url: '/BusinessNews'
-        },
-        {
-          label: 'Спорт',
-          url: '/SportNews'
-        },
-        {
-          label: 'Технологии',
-          url: '/TechnologyNews'
-        }
-      ]
+      src: ''
     }
   },
   mounted () {
@@ -140,11 +74,6 @@ export default {
       .catch((error) => {
         alert(error)
       })
-  },
-  methods: {
-    toggleThems () {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    }
   }
 }
 </script>

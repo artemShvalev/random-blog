@@ -12,18 +12,17 @@
         loading="true"
       >
         <v-card-title
-          v-for="sport in sports"
-          :key="sport.index"
+          v-for="scienses in sciense"
+          :key="scienses.index"
           color="cyan lighten-3"
         >
-          {{ sport.title }}
+          {{ scienses.title }}
           <v-spacer />
           <v-card-subtitle
             color="color"
             class="mt-2 mb-2"
-            width="300"
           >
-            {{ sport.description }}
+            {{ scienses.description }}
           </v-card-subtitle>
           <v-spacer />
           <v-img
@@ -34,12 +33,12 @@
             transition="true"
             position="center center"
             contain
-            :src="sport.urlToImage"
-            lazy-src="sport.urlToImage"
+            :src="scienses.urlToImage"
+            lazy-src="bus.urlToImage"
           />
           <v-btn
             v-ripple="{center: true}"
-            :href="sport.url"
+            :href="scienses.url"
             class="mt-5"
           >
             Подробнее...
@@ -56,23 +55,24 @@ import Navigation from '../components/Navigation'
 import Footer from '~/components/Footer.vue'
 
 export default {
-  name: 'SportNews',
+  name: 'PoliticsPage',
   components: {
     Navigation,
     Footer
   },
   data () {
     return {
-      sports: null
+      sciense: null,
+      src: ''
     }
   },
   mounted () {
-    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=sport&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
+    this.$axios.$get('http://newsapi.org/v2/top-headlines?country=ru&category=science&apiKey=d24618ec857b475e8e3f2e60828b9c6b')
       .then((response) => {
-        this.sports = response.articles
+        this.sciense = response.articles
       })
       .catch((error) => {
-        this.$router.push(error, '/error')
+        alert(error)
       })
   }
 }
