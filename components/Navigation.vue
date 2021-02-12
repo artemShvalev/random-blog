@@ -1,15 +1,18 @@
 <template>
   <div>
-    <no-ssr>
+    <client-only>
       <v-app-bar app color="primary">
         <v-toolbar-title>Новости</v-toolbar-title>
         <v-app-bar-nav-icon
-          :width="width.xs"
-          :outlined="true"
-          class="pl-6"
-          icon="mdi-all"
+          :rounded="true"
+          color="light-blue lighten-5"
           @click="drawer = true"
         >
+          <v-icon
+          class="pl-5"
+          >
+            mdi-order-bool-ascending
+          </v-icon>
           <v-spacer />
           <v-navigation-drawer
             v-model="drawer"
@@ -50,7 +53,7 @@
           </v-navigation-drawer>
         </v-app-bar-nav-icon>
       </v-app-bar>
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 
