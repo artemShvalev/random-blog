@@ -1,6 +1,8 @@
-# random-blog
+# News Feed
 
-## Build Setup
+### News feed created with through [NewsApi](https://newsapi.org/) avalible only for RU-segment 
+
+##### For install:
 
 ```bash
 # install dependencies
@@ -16,5 +18,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
